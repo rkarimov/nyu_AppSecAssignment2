@@ -1,4 +1,4 @@
-name: Assignment2 Test scripts
+name: Assignment2 Test scripts // part_1_complete
 on: [push]
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
         pip install requests
         pip install python-decouple
         pip install virtualenv
-    - name: init config
+    - name: init config - Configure migrations and make the local env for testing
       run: |
         virtualenv env
         python3 GiftcardSite/manage.py makemigrations LegacySite
