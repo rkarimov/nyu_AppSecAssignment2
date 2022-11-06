@@ -1,23 +1,16 @@
-name: Assignment2 Test scripts
-
-on: [push]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
       matrix:
         python-version: [3.9]
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-
     - name: Dependency check
       run: |
         python3 -m pip install --upgrade pip
@@ -26,8 +19,7 @@ jobs:
         pip install requests
         pip install python-decouple
         pip install virtualenv
-    
-   - name: init config
+    - name: init config
       run: |
         virtualenv env
         python3 GiftcardSite/manage.py makemigrations LegacySite
@@ -35,7 +27,6 @@ jobs:
         python3 GiftcardSite/manage.py migrate
         sh GiftcardSite/import_dbs.sh
         python3 GiftcardSite/manage.py runserver 127.0.0.1:8000
-        
     - name: XSS test
       run: python3 GiftcardSite/tests/XSS_test.py
     - name: CSRF test
@@ -44,4 +35,3 @@ jobs:
       run: python3 GiftcardSite/tests/SQL_injection.py
     - name: command injection
       run: python3 GiftcardSite/tests/command_injection.py
-
