@@ -1,0 +1,51 @@
+name: Assignment2 Test scripts
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Dependency check
+      run: |
+        python3 -m pip install --upgrade pip
+        pip install django
+        pip install django-cryptography
+        pip install requests
+
+    - name: first make migrations run
+      run: python3 manage.py makemigrations LegacySite
+
+    - name: migration check
+      run: python3 manage.py makemigrations
+
+    - name: migration execcution
+      run: python3 manage.py migrate
+
+    - name: create a DB
+      run: sh import_dbs.sh
+
+    - name: run init test to ensure all is running before test scripts!
+      run: python3 manage.py test
+
+    - name: XSS test
+      run: tests/XSS_test.py
+    - name: CSRF test
+      run: tests/CSRF_test.py
+    - name: SQL injection test
+      run: tests/SQL_injection.py
+    - name: command injection
+      run: tests/command_injection.py
+
