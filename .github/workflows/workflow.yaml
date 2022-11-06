@@ -25,16 +25,21 @@ jobs:
         pip install django-cryptography
         pip install requests
         pip install python-decouple
-
-    - name: init config
+        pip install virtualenv
+    
+   - name: init config
+      env: 
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1:8000
+          DB_NAME: ${{ secrets.DB_NAME }}
       run: |
+        virtualenv env
         python3 GiftcardSite/manage.py makemigrations LegacySite
         python3 GiftcardSite/manage.py makemigrations
         python3 GiftcardSite/manage.py migrate
         sh GiftcardSite/import_dbs.sh
-        python3 GiftcardSite/manage.py test GiftcardSite
-        python3 GiftcardSite/manage.py runserver
-
+        python3 GiftcardSite/manage.py runserver 127.0.0.1:8000
+        
     - name: XSS test
       run: python3 GiftcardSite/tests/XSS_test.py
     - name: CSRF test
