@@ -24,6 +24,7 @@ jobs:
         pip install django
         pip install django-cryptography
         pip install requests
+        pip install python-decouple
 
     - name: init config
       run: |
@@ -34,11 +35,11 @@ jobs:
         python3 GiftcardSite/manage.py test GiftcardSite
 
     - name: XSS test
-      run: tests/XSS_test.py
+      run: GiftcardSite/tests/XSS_test.py
     - name: CSRF test
-      run: tests/CSRF_test.py
+      run: GiftcardSite/tests/CSRF_test.py
     - name: SQL injection test
-      run: tests/SQL_injection.py
+      run: GiftcardSite/tests/SQL_injection.py
     - name: command injection
-      run: tests/command_injection.py
+      run: GiftcardSite/tests/command_injection.py
 
