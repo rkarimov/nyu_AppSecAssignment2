@@ -31,8 +31,8 @@ jobs:
         python3 GiftcardSite/manage.py makemigrations LegacySite
         python3 GiftcardSite/manage.py makemigrations
         python3 GiftcardSite/manage.py migrate
-        sh GiftcardSite/import_dbs.sh
-        python3 GiftcardSite/manage.py test GiftcardSite
+        #sh GiftcardSite/import_dbs.sh
+        #python3 GiftcardSite/manage.py test GiftcardSite
 
     - name: XSS test
       run: GiftcardSite/tests/XSS_test.py
