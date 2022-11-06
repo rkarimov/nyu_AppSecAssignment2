@@ -6,6 +6,8 @@ from . import extras
 from django.views.decorators.csrf import csrf_protect as csrf_protect
 from django.contrib.auth import login, authenticate, logout
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_protect as csrf_protect ## adding this to mitigate CSRF attack. 
 
 SALT_LEN = 16
 
@@ -110,6 +112,7 @@ def buy_card_view(request, prod_num=0):
         return redirect("/buy/1")
 
 # KG: What stops an attacker from making me buy a card for him?
+@csrf_protect #tag to mitigate CSRF Attack
 def gift_card_view(request, prod_num=0):
     context = {"prod_num" : prod_num}
     if request.method == "GET":
@@ -185,7 +188,7 @@ def use_card_view(request):
         # check if we know about card.
         # KG: Where is this data coming from? RAW SQL usage with unkown
         # KG: data seems dangerous.
-        signature = json.loads(card_data)['records'][0]['signature']
+        [signature] = json.loads(card_data)['records'][0]['signature'] # SQL Injection fix: wrapping signature variable in brackets helps mitigate the use of special characters which therfore prevents special characters from being executed by query 
         # signatures should be pretty unique, right?
         card_query = Card.objects.raw('select id from LegacySite_card where data = \'%s\'' % signature)
         user_cards = Card.objects.raw('select id, count(*) as count from LegacySite_card where LegacySite_card.user_id = %s' % str(request.user.id))
