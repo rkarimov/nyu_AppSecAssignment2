@@ -27,11 +27,11 @@ jobs:
 
     - name: init config
       run: |
-        python3 ./manage.py makemigrations LegacySite
-        python3 ./manage.py makemigrations
-        python3 ./manage.py migrate
-        sh import_dbs.sh
-        python3 ./manage.py test GiftcardSite
+        python3 GiftcardSite/manage.py makemigrations LegacySite
+        python3 GiftcardSite/manage.py makemigrations
+        python3 GiftcardSite/manage.py migrate
+        sh GiftcardSite/import_dbs.sh
+        python3 GiftcardSite/manage.py test GiftcardSite
 
     - name: XSS test
       run: tests/XSS_test.py
