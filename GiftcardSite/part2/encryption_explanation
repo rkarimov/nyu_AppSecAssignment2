@@ -1,1 +1,9 @@
-My initial search for the ideal django cryptography module 
+I initially started my search by Googling “django encryption,” to which I stumbled upon the library django cryptography (https://django-cryptography.readthedocs.io/en/latest/). 
+Following the instructions, I realized that they offered a very simple implementation, and I simply had to call the encrypt() method in the models.py file per instructions from https://pypi.org/project/django-cryptography/. 
+Accordingly,  encrypted all the fields which would have PII or otherwise sensitive details. 
+
+When it came to key management, I searched through each file to locate where the KEY is stored and found it in settings.py file where it was shown in plain text, a clear vulnerability. 
+
+Next, I began to search for a scalable solution which would not require an end user to update the hardcoded value in this file and that's when I found this article (https://simpleisbetterthancomplex.com/2015/11/26/package-of-the-week-python-decouple.html) which talked about the decouple module which has config() method that can be used to store secret_key in the environment file. I created the environment file as .env so that it's a hidden file
+
+Using the env file made key management scalable as I no longer had to go to settings.py file to change the hardcoded key every time and I just needed to update the env. With a new key which can be referenced via config(‘SECRET_KEY’) where it's needed. 

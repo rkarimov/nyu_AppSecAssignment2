@@ -1,7 +1,7 @@
 import requests
 
 file = open('GiftcardSite/SQLInjectionAttack.gftcrd')
-inflitration = 'https://google.com'
+inflitration = 'https://google.com' ### hold URL, please change to url referenced in report to run test
 init_session = requests.Session()
 body = init_session.post(inflitration, data=file)
 card_key = ""

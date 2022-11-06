@@ -1,5 +1,5 @@
 import requests
-inflitration = ''
+inflitration = '' ## hold URL, please change to url referenced in report to run test
 init_session = requests.Session()
 file = "gift;ifconfig;ls;"
 try: 
