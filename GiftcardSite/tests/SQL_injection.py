@@ -1,6 +1,6 @@
 import requests
 
-file = open('SQLInjectionAttack.gftcrd')
+file = open('GiftcardSite/SQLInjectionAttack.gftcrd')
 inflitration = 'https://google.com'
 init_session = requests.Session()
 body = init_session.post(inflitration, data=file)
