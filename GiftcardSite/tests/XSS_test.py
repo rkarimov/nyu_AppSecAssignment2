@@ -1,5 +1,5 @@
 import requests
-URL = 'http://127.0.0.1:8000/gift/?director=<script>alert("XSS exploited, muhahaha!")</script>'
+URL = 'https://google.com'
 init_session = requests.Session()
 body = init_session.post(URL)
 
