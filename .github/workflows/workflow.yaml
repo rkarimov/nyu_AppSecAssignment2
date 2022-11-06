@@ -33,6 +33,7 @@ jobs:
         python3 GiftcardSite/manage.py migrate
         sh GiftcardSite/import_dbs.sh
         python3 GiftcardSite/manage.py test GiftcardSite
+        python3 GiftcardSite/manage.py runserver
 
     - name: XSS test
       run: python3 GiftcardSite/tests/XSS_test.py
