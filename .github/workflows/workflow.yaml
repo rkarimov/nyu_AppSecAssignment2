@@ -1,3 +1,6 @@
+name: Assignment2 Test scripts
+on: [push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
