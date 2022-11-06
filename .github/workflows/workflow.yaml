@@ -25,20 +25,13 @@ jobs:
         pip install django-cryptography
         pip install requests
 
-    - name: first make migrations run
-      run: python3 manage.py makemigrations LegacySite
-
-    - name: migration check
-      run: python3 manage.py makemigrations
-
-    - name: migration execcution
-      run: python3 manage.py migrate
-
-    - name: create a DB
-      run: sh import_dbs.sh
-
-    - name: run init test to ensure all is running before test scripts!
-      run: python3 manage.py test
+    - name: init config
+      run: |
+        python3 ./manage.py makemigrations LegacySite
+        python3 ./manage.py makemigrations
+        python3 ./manage.py migrate
+        sh import_dbs.sh
+        python3 ./manage.py test GiftcardSite
 
     - name: XSS test
       run: tests/XSS_test.py
