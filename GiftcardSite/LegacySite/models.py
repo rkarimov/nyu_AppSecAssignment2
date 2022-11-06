@@ -38,9 +38,9 @@ class Product(models.Model):
 
 class Card(models.Model):
     id = models.AutoField(primary_key=True)
-    data = models.BinaryField(unique=True)
+    data = encrypt(models.BinaryField(unique=True))
     product = models.ForeignKey('LegacySite.Product', on_delete=models.CASCADE, default=None)
-    amount = models.IntegerField()
+    amount = encrypt(models.IntegerField())
     fp = encrypt(models.CharField(max_length=100, unique=True))
-    user = encrypt(models.ForeignKey('LegacySite.User', on_delete=models.CASCADE))
-    used = encrypt(models.BooleanField(default=False))
+    user = models.ForeignKey('LegacySite.User', on_delete=models.CASCADE)
+    used = models.BooleanField(default=False)
