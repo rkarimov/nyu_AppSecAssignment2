@@ -28,10 +28,6 @@ jobs:
         pip install virtualenv
     
    - name: init config
-      env: 
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DJANGO_ALLOWED_HOSTS: localhost 127.0.0.1:8000
-          DB_NAME: ${{ secrets.DB_NAME }}
       run: |
         virtualenv env
         python3 GiftcardSite/manage.py makemigrations LegacySite
